@@ -1,14 +1,9 @@
 (ns contextual.core-test
-  (:require #?@(:cljs [[cljs.test :as t :refer-macros [deftest is]]
-                       [cljs.test.check :as tc]
-                       [cljs.test.check.generators :as gen]
-                       [cljs.test.check.properties :as prop :include-macros true]
-                       [cljs.test.check.cljs-test :refer-macros [defspec]]]
-                :clj [[clojure.test :as t :refer [deftest is]]
-                      [clojure.test.check :as tc]
-                      [clojure.test.check.generators :as gen]
-                      [clojure.test.check.properties :as prop]
-                      [clojure.test.check.clojure-test :refer [defspec]]])
+  (:require [clojure.test :as t :refer [deftest is]]
+            [clojure.test.check :as tc]
+            [clojure.test.check.generators :as gen]
+            [clojure.test.check.properties :as prop]
+            [clojure.test.check.clojure-test :refer [defspec]]
             [contextual.core :as c]))
 
 (deftest contextual-map-basics
@@ -89,7 +84,3 @@
                   (every? (fn [[k v]]
                             (check-children c [k] k v))
                           c))))
-
-
-
-

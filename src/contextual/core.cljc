@@ -58,8 +58,8 @@
 (defn- contextual-entry
   [path [key value :as entry]]
   (if (contextualizable? value)
-    #?(:clj (clojure.lang.MapEntry. key (contextualize value (conj path key)))
-       :cljs [key (contextualize value (conj path key))])
+    #?(:clj  (clojure.lang.MapEntry. key (contextualize value (conj path key)))
+       :cljs (cljs.core.MapEntry.    key (contextualize value (conj path key))))
     entry))
 
 #?(:clj
@@ -365,10 +365,6 @@
       (-lookup [_ k not-found]
         (contextual-value path k (-lookup delegate k not-found)))
 
-      IMapEntry
-      (-key [_] (-key delegate))
-      (-val [_] (contextual-value path 1 (-val delegate)))
-
       IAssociative
       (-assoc [_ k v] (->DelegateVec (-assoc delegate k v) path))
       (-contains-key? [_ k] (-contains-key? delegate k))
@@ -394,4 +390,3 @@
       IIterable
       (-iterator [this]
         (seq-iter (seq this)))))
-
